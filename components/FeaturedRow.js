@@ -1,9 +1,29 @@
 import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ArrowRightIcon } from 'react-native-heroicons/outline'
 import RestaurantCards from './RestaurantCards'
+import SanityClient from '../sanity'
 
 export default function FeautredRow({id, title, description}) {
+
+    const [restaurants, setRestaurants] = useState([])
+
+    useEffect(() => {
+        SanityClient.fetch(`
+        *[_type == 'Featured' && _id == $id] {
+            ...,
+            restaurants[]->{
+              ...,
+              dishes[]->,
+              type->{
+                name
+              }
+            },
+          }[0]`,{id}).then((data) => {
+            setRestaurants(data?.restaurants)
+          })
+    }, [])
+
     return (
         <View>
             <View className='mt-4 flex-row items-center justify-between px-4'>
@@ -19,42 +39,21 @@ export default function FeautredRow({id, title, description}) {
                 paddingHorizontal: 15
             }}>
                 {/* RestaurantCards */}
-                <RestaurantCards
-                id={1}
-                imgUrl='http://links.papareact.com/gn7'
-                title='SushiRoll'
-                rating={4.5}
-                address='123 Main St'
-                genre='Japanese'
-                short_description='This is the description'
-                dishes={[]}
-                long={20}
-                lat={0}
-                />
-                <RestaurantCards
-                id={1}
-                imgUrl='http://links.papareact.com/gn7'
-                title='SushiRoll'
-                rating={4.5}
-                address='123 Main St'
-                genre='Japanese'
-                short_description='This is the description'
-                dishes={[]}
-                long={20}
-                lat={0}
-                />
-                <RestaurantCards
-                id={1}
-                imgUrl='http://links.papareact.com/gn7'
-                title='SushiRoll'
-                rating={4.5}
-                address='123 Main St'
-                genre='Japanese'
-                short_description='This is the description'
-                dishes={[]}
-                long={20}
-                lat={0}
-                />
+                {restaurants?.map((restaurant) => (
+                    <RestaurantCards
+                    key={restaurant._id}
+                    id={restaurant._id}
+                    imgUrl={restaurant.image}
+                    title={restaurant.name}
+                    rating={restaurant.rating}
+                    address={restaurant.address}
+                    genre={restaurant.type?.name}
+                    short_description={restaurant.short_description}
+                    dishes={restaurant.dishes}
+                    long={restaurant.long}
+                    lat={restaurant.lat}
+                    />
+                ))}
             </ScrollView>
         </View>
     )
