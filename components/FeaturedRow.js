@@ -6,23 +6,23 @@ import SanityClient from '../sanity'
 
 export default function FeautredRow({id, title, description}) {
 
-    const [restaurants, setRestaurants] = useState([])
+  const [restaurants, setRestaurants] = useState([])
 
-    useEffect(() => {
-        SanityClient.fetch(`
-        *[_type == 'Featured' && _id == $id] {
-            ...,
-            restaurants[]->{
-              ...,
-              dishes[]->,
-              type->{
-                name
-              }
-            },
-          }[0]`,{id}).then((data) => {
-            setRestaurants(data?.restaurants)
-          })
-    }, [])
+  useEffect(() => {
+    SanityClient.fetch(`
+    *[_type == 'Featured' && _id == $id] {
+      ...,
+      restaurants[]->{
+        ...,
+        dishes[]->,
+        type->{
+          name
+        }
+      },
+    }[0]`,{id}).then((data) => {
+      setRestaurants(data?.restaurants)
+    })
+  }, [])
 
     return (
         <View>
