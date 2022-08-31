@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { selectBascketItems, selectBasketTotal } from '../features/basketSlice'
+import { selectBasketTotal, selectBascketItems } from '../features/basketSlice'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 
