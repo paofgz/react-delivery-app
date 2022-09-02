@@ -5,18 +5,27 @@ import * as Animatable from 'react-native-animatable'
 import * as Progress from 'react-native-progress'
 import { useNavigation } from '@react-navigation/native'
 import { useEffect } from 'react'
+import { useRoute } from '@react-navigation/native'
 
 export default function PreparingOrderScreen() {
   const navigation = useNavigation()
+
+  const {
+    params: {
+      restaurant
+    }
+  } = useRoute()
+
   useEffect(() => {
     setTimeout(() => {
         navigation.navigate('Delivery')
     }, 3000)
   }, [])
+  
   return (
     <SafeAreaView className='flex-1 justify-center items-center'>
       <Animatable.Image 
-        source={require('../assets/badbunnypizza.gif')}
+        source={restaurant === 'Pizzas' ? require('../assets/badbunnypizza.gif') : require('../assets/bibble-fairytopia.gif')}
         animation='slideInUp'
         iterationCount={1}
         className='h-96 w-96'

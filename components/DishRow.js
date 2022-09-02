@@ -26,7 +26,7 @@ export default function DishRow({
     }
     return (
         <>
-        <TouchableOpacity className='bg-white border p-4 border-gray-200'
+        <TouchableOpacity className='bg-white border p-4 border-gray-200 rounded-md m-3'
         onPress={() => setIsPressed(!isPressed)}>
         <View className='flex-row'>
             <View className='flex-1 pr-2'>
@@ -51,14 +51,14 @@ export default function DishRow({
                     <TouchableOpacity>
                         <MinusCircleIcon
                         onPress={removeItemFromBasket} 
-                        color={items.length > 0 ? '#00CCBB' : 'gray'}
+                        color={items.length > 0 ? '#9472CB' : 'gray'}
                         size={40}/>
                     </TouchableOpacity>
                     <Text>{items.length}</Text>
                     <TouchableOpacity>
                         <PlusCircleIcon
                         onPress={addItemToBasket}
-                        color='#00CCBB'
+                        color='#9472CB'
                         size={40}/>
                     </TouchableOpacity>
                 </View>

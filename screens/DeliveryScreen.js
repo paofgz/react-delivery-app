@@ -14,7 +14,7 @@ export default function DeliveryScreen() {
     const restaurant = useSelector(selectRestaurant)
 
   return (
-    <View className='bg-[#00CCBB] flex-1'>
+    <View className='bg-[#9472CB] flex-1'>
       <SafeAreaView className='z-50'>
         <View className='flex-row justify-between items-center p-5'>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
@@ -34,7 +34,7 @@ export default function DeliveryScreen() {
                 className='h-20 w-20'
                 />
             </View>
-            <Progress.Bar size={30} color='#00CCBB' indeterminate={true} />
+            <Progress.Bar size={30} color='#9472CB' indeterminate={true} />
             <Text className='mt-3 text-gray-500'>
                 Your order at {restaurant.title} is being prepared
             </Text>
@@ -57,7 +57,7 @@ export default function DeliveryScreen() {
         title={restaurant.title}
         description={restaurant.description}
         identifier='origin'
-        pinColor='#00CCBB'
+        pinColor='#9472CB'
         />
       </MapView>
 

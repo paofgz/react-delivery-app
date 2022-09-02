@@ -5,6 +5,7 @@ import { ChevronDownIcon, UserIcon, SearchIcon, CogIcon } from 'react-native-her
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
 import  SanityClient  from '../sanity';
+import { TouchableOpacity } from 'react-native'
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -32,7 +33,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView>
       {/* Header */}
-      <View className="flex-row items-center mx-4 space-x-4">
+      <View className="flex-row items-center mx-4 space-x-4 mb-5">
         <Image 
           source={{
             uri: 'http://links.papareact.com/wru'
@@ -43,10 +44,16 @@ export default function HomeScreen() {
           <Text className="font-bold text-xl">Deliver now</Text>
           <Text className="text-gray-400">
             Current location
-            <ChevronDownIcon size={30} color='#00CCBB' />
           </Text>
         </View>
-        <UserIcon size={35} color='#00CCBB' />
+        <TouchableOpacity>
+          <UserIcon
+          onPress={() => {
+            navigation.navigate('Profile')
+          }}
+          color='#9472CB'
+          size={25}/>
+        </TouchableOpacity>
       </View>
 
       {/* Search */}
@@ -59,11 +66,11 @@ export default function HomeScreen() {
               keyboardType='default' 
             />
           </View>
-          <CogIcon size={25} color='#00CCBB'/>
+          <CogIcon size={25} color='#9472CB'/>
       </View>
 
       {/* Body */}
-      <ScrollView className="flex-1" contentContainerStyle={{paddingBottom: 100}}>
+      <ScrollView className="flex-1" contentContainerStyle={{paddingBottom: 150}}>
         {/* Categories */}
         <Categories />
         
