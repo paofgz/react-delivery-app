@@ -25,7 +25,7 @@ export default function App() {
           <Stack.Screen name='PreparingOrderScreen' component={PreparingOrderScreen} options={{presentation: 'fullScreenModal', headerShown: false}}/>
           <Stack.Screen name='Delivery' component={DeliveryScreen} options={{presentation: 'fullScreenModal', headerShown: false}}/>
           <Stack.Screen name='Profile' component={ProfileScreen} options={{presentation: 'modal', headerShown: false}}/>
-          <Stack.Screen name='Category' component={CategoryScreen} />
+          <Stack.Screen name='Category' component={CategoryScreen} options={{headerShown: false}}/>
         </Stack.Navigator>
       </TailwindProvider>
     </Provider>

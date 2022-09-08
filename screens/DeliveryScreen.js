@@ -1,5 +1,6 @@
 import { View, Text, Touchable, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { selectRestaurant } from '../features/restaurantSlice'
@@ -8,10 +9,31 @@ import { XIcon } from 'react-native-heroicons/solid'
 import { Image } from 'react-native-animatable'
 import * as Progress from 'react-native-progress'
 import MapView, { Marker } from 'react-native-maps'
+import * as Location from 'expo-location'
+import * as Permissions from 'expo-permissions'
+import * as Constants from 'expo-constants'
 
 export default function DeliveryScreen() {
-    const navigation = useNavigation()
-    const restaurant = useSelector(selectRestaurant)
+  const navigation = useNavigation()
+  const restaurant = useSelector(selectRestaurant)
+  const [current, setCurrent] = useState({
+    locationResult: 'None'
+  })
+  useEffect(() => {
+    _getLocationAsync();
+  }, [])
+
+  const _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION)
+    if (status !== 'granted') {
+      this.setState({
+      locationResult: 'Permission to access location was denied',
+      });
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    setCurrent({ locationResult: location });
+    console.log(current)
+  }
 
   return (
     <View className='bg-[#9472CB] flex-1'>
@@ -55,9 +77,18 @@ export default function DeliveryScreen() {
             longitude: -99.12820370251724
         }}
         title={restaurant.title}
-        description={restaurant.description}
+        description={restaurant.short_description}
         identifier='origin'
         pinColor='#9472CB'
+        />
+        <Marker
+        coordinate={{
+            latitude: current.locationResult.coords ? current.locationResult.coords.latitude : 19.2951278196816,
+            longitude: current.locationResult.coords ? current.locationResult.coords.longitude : -99.12820370251724
+        }}
+        title='You'
+        description='You are here'
+        pinColor='red'
         />
       </MapView>
 
