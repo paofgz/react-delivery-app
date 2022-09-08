@@ -8,6 +8,7 @@ import PreparingOrderScreen from './screens/PreparingOrderScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import DeliveryScreen from './screens/DeliveryScreen';
 import CategoryScreen from './screens/CategoryScreen';
+import AllergyScreen from './screens/AllergyScreen';
 import { Provider } from 'react-redux';
 import { store } from './store'
 
@@ -26,6 +27,7 @@ export default function App() {
           <Stack.Screen name='Delivery' component={DeliveryScreen} options={{presentation: 'fullScreenModal', headerShown: false}}/>
           <Stack.Screen name='Profile' component={ProfileScreen} options={{presentation: 'modal', headerShown: false}}/>
           <Stack.Screen name='Category' component={CategoryScreen} options={{headerShown: false}}/>
+          <Stack.Screen name='FoodAllergy' component={AllergyScreen} options={{headerShown: false}} />
         </Stack.Navigator>
       </TailwindProvider>
     </Provider>
